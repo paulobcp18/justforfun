@@ -6,9 +6,13 @@ import numpy as np
 deck = list(itertools.product(range(1,14), 
         ['Spade', 'Hearts', 'Diamond', 'Club']))
 
-print('How many decks?')
-num_decks = input()
-deck = list(itertools.chain.from_iterable(itertools.repeat(x, int(num_decks)) for x in deck))
+# if player wants to choose the number of decks
+
+# print('How many decks?')
+# num_decks = input()
+# deck = list(itertools.chain.from_iterable(itertools.repeat(x, int(num_decks)) for x in deck))
+
+deck = list(itertools.chain.from_iterable(itertools.repeat(x, 8) for x in deck))
 
 random.shuffle(deck)
 # print(deck)
@@ -54,13 +58,16 @@ def you_win():
         print('You win!')
         bets[0] = bets[0] * 2.5
 
+you_win()
+
 
 
 def dealers_score():
     score = 0
     for i in range(len(dealers_cards)):
         if (dealers_cards[i][0] == 1):
-            print('Ace equals to 1 or 11?')
+            print('Dealer, Ace equals to 1 or 11?')
+            print(dealers_cards)
             ace_choice = int(input())
             score += ace_choice
         elif (dealers_cards[i][0] < 10):
@@ -82,6 +89,7 @@ def hit_me():
         
         if hit_me == 'yes':
             players_cards.append(random.choice(deck))
+            print(players_cards)
             total = players_score()
             if total > 21:
                 print('bust')
@@ -116,6 +124,7 @@ def hit_me():
                     else:
                         ('you win!')
                         bets[0] = bets[0] * 2
+                        break
                 break
 
 hit_me()
