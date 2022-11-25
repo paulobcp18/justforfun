@@ -5,17 +5,22 @@ deck = list(itertools.product(range(1,14),
 deck = list(itertools.chain.from_iterable(itertools.repeat(x, 8) for x in deck))
 
 class Player:
-    def __init__(self, num, for_bet, score, hand):
+    def __init__(self, num, for_bet, score=0, bet=0):
         self.number = num
         self.initial_amount = for_bet
         self.score = 0
         self.hand = [random.choice(deck), random.choice(deck)]
+        self.bet = 0
 
     def welcome(self):
         print('Welcome, Player', self.number)
 
+    def print_hand(self):
+        print(self.hand)
+
     def hand_update(self):
         self.hand.append(random.choice(deck))
+        self.print_hand()
 
     def ace_value_choice(self):
         print('Ace equals to 1 or 11?')
@@ -32,5 +37,22 @@ class Player:
             else:
                 self.score += 10
 
-        # print('Player\'s score is: ', score)
+        print('Player\'s score is: ', self.score)
         return self.score
+
+    def balance(self):
+        init_bal = self.initial_amount
+        print("you have {}, how much do you wanna bet?".format(init_bal))
+        self.bet = int(input())
+        if self.bet > init_bal:
+            print('bet amount bigger than current balance')
+            print('current balance: ', self.initial_amount)
+            print("how much do you wanna bet?")
+            self.bet = int(input())
+        else:
+            return self.bet
+        
+
+Paulo = Player(1, 1000)
+Paulo.print_hand()
+Paulo.players_score()

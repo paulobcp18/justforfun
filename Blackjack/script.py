@@ -102,6 +102,7 @@ def hit_me():
         else:
             print('stay')
             dealer = dealers_score()
+            total = players_score()
             if dealer >= 17:
                 if total > dealer:
                     print('you win!')
