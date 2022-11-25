@@ -53,6 +53,57 @@ class Player:
             return self.bet
         
 
+class Dealer:
+    def __init__(self, for_bet=0, score=0, bet=0):
+        self.initial_amount = 0
+        self.score = 0
+        self.hand = [random.choice(deck), random.choice(deck)]
+        self.bet = 0
+
+    def print_hand(self):
+        print(self.hand[0])
+
+    def hand_update(self):
+        self.hand.append(random.choice(deck))
+        self.print_hand()
+
+    def ace_value_choice(self):
+        print('Ace equals to 1 or 11?')
+        ace_choice = int(input())
+        return ace_choice
+
+    def dealer_score(self):
+        
+        for i in range(len(self.hand)):
+            if (self.hand[i][0] == 1 or self.hand[i][0] == 14):
+                self.score += self.ace_value_choice()
+            elif (self.hand[i][0] < 10):
+                self.score += self.hand[i][0]
+            else:
+                self.score += 10
+
+        print('Player\'s score is: ', self.score)
+        return self.score
+
+    def game_destiny(self):
+        if self.dealer_score() < 17:
+            self.hand_update()
+            if self.dealer_score() > 21:
+                print('Dealer Bust!')
+            else:
+                self.dealer_score()
+        elif self.dealer_score > 16:
+            self.print_hand()
+            self.dealer_score()
+        
+
+    def balance(self):
+        init_bal = self.initial_amount
+        
+
 Paulo = Player(1, 1000)
 Paulo.print_hand()
 Paulo.players_score()
+
+dealer = Dealer()
+dealer.print_hand()
